@@ -71,7 +71,7 @@ class CountdownBloc {
   Stream<CountdownTime> get countdownStream => _countdownController.stream;
 
   void startCountdown(CountdownTime time, InputStatusBloc inputStatusBloc) {
-    time.setCountdown(time.getTotalTimeInSeconds() + 1);
+    // time.setCountdown(time.getTotalTimeInSeconds() + 1);
     timer = Timer.periodic(
       const Duration(seconds: 1),
       (_) {

@@ -18,22 +18,21 @@ class _HomePageState extends State<HomePage> {
     // print("Home page got rebuild");
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF189AB4),
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Icon(Icons.arrow_back),
             Text("Countdown"),
-            Icon(Icons.call),
           ],
         ),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // shown countdown
             Expanded(
-              flex: 1,
+              flex: 2,
               child: CountdownTimer(
                 countdownStream: countdownBloc.countdownStream,
               ),
@@ -41,9 +40,33 @@ class _HomePageState extends State<HomePage> {
 
             // Input section
             Expanded(
-              flex: 2,
-              child: CountdownInput(
-                countdownBloc: countdownBloc,
+              flex: 1,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF05445E),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(24),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      width: 50,
+                      height: 10,
+                      decoration: const BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                      ),
+                    ),
+                    Expanded(
+                      child: CountdownInput(
+                        countdownBloc: countdownBloc,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

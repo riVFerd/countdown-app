@@ -16,6 +16,11 @@ class CountdownInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const inputFieldStyle = InputDecoration(
+      hintText: "0",
+      hintStyle: TextStyle(color: Colors.white),
+    );
+
     return StreamBuilder(
       stream: inputStatusBloc.inputStatusStream,
       initialData: true,
@@ -31,45 +36,82 @@ class CountdownInput extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Row(
-              children: [
-                const Spacer(),
-                Expanded(
-                  child: TextField(
-                    controller: inputHoursController,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    enabled: isActive,
+            Container(
+              decoration: const BoxDecoration(),
+              child: Row(
+                children: [
+                  const Spacer(),
+                  Expanded(
+                    child: TextField(
+                      controller: inputHoursController,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      enabled: isActive,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: inputFieldStyle,
+                    ),
                   ),
-                ),
-                const Text("Hour"),
-                const Spacer(),
-                Expanded(
-                  child: TextField(
-                    controller: inputMinutesController,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    enabled: isActive,
+                  const Text(
+                    "Hour",
+                    style: TextStyle(color: Colors.white),
                   ),
-                ),
-                const Text("Min"),
-                const Spacer(),
-                Expanded(
-                  child: TextField(
-                    controller: inputSecondsController,
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    enabled: isActive,
+                  const Spacer(),
+                  Expanded(
+                    child: TextField(
+                      controller: inputMinutesController,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      enabled: isActive,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: inputFieldStyle,
+                    ),
                   ),
-                ),
-                const Text("Sec"),
-                const Spacer(),
-              ],
+                  const Text(
+                    "Min",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  const Spacer(),
+                  Expanded(
+                    child: TextField(
+                      controller: inputSecondsController,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.center,
+                      enabled: isActive,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: inputFieldStyle,
+                    ),
+                  ),
+                  const Text(
+                    "Sec",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  const Spacer(),
+                ],
+              ),
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed)) {
+                      return Colors.white.withOpacity(0.5);
+                    } else if (states.contains(MaterialState.disabled)) {
+                      return Colors.grey;
+                    }
+                    return Colors.white;
+                  },
+                ),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                ),
+              ),
               onPressed: !isActive
                   ? null
                   : () {
+                      // Todo: prevent all event to start when all input are empty
+
                       // disable all input while countdown still active
                       inputStatusBloc.changeInputStatus();
 
@@ -93,8 +135,17 @@ class CountdownInput extends StatelessWidget {
                         inputStatusBloc,
                       );
                     },
-              child: const Text("Start"),
-            )
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Start",
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Color(0xFF05445E),
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },
